@@ -1,0 +1,5 @@
+<resources>
+    <declare-styleable name="SearchToolbarView">
+        <attr name="back_button" format="boolean" />
+    </declare-styleable>
+</resources>
