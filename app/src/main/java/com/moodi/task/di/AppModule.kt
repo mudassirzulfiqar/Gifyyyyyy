@@ -7,6 +7,7 @@ import com.moodi.task.data.repository.GiphyRepositoryImpl
 import com.moodi.task.data.source.RemoteDataSource
 import com.moodi.task.data.source.RemoteDataSourceImpl
 import com.moodi.task.ui.dispatcher.PeriodicDispatcher
+import com.moodi.task.usecase.SearchGifUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -45,6 +46,11 @@ class AppModule {
         dispatcher: CoroutineDispatcher
     ): GiphyRepository {
         return GiphyRepositoryImpl(remoteDataSource, dispatcher)
+    }
+
+    @Provides
+    fun provideSearchGifUseCase(giphyRepository: GiphyRepository): SearchGifUseCase {
+        return SearchGifUseCase(giphyRepository)
     }
 
     @Provides

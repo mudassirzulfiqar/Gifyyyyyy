@@ -2,14 +2,18 @@ package com.moodi.task.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.moodi.task.data.ERROR_NETWORK
 import com.moodi.task.data.Resource
-import com.moodi.task.data.remote.api.WebApi.Companion.SEARCH_LIMIT_SIZE
-import com.moodi.task.data.repository.GiphyRepository
-import com.moodi.task.ui.sate.SearchState
+import com.moodi.task.ui.sate.search.SearchState
+import com.moodi.task.ui.sate.search.UiEffect
+import com.moodi.task.ui.sate.search.UiEvent
+import com.moodi.task.usecase.SearchGifUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -24,49 +28,63 @@ import javax.inject.Inject
  *
  */
 @HiltViewModel
-class SearchViewModel @Inject constructor(private val giphyRepository: GiphyRepository) :
+class SearchViewModel
+@Inject constructor(
+    private val searchGifUseCase: SearchGifUseCase
+) :
     ViewModel() {
 
-    private val _dataState = MutableStateFlow<SearchState>(SearchState.Empty)
+    private val _dataState = MutableStateFlow(SearchState())
     val dataState = _dataState.asStateFlow()
+
+
+    private val _uiEffect = MutableSharedFlow<UiEffect>()
+    val uiEffectState = _uiEffect.asSharedFlow()
+
+
+    fun onEvent(event: UiEvent) {
+        when (event) {
+            is UiEvent.Search -> search(event.searchQuery)
+            is UiEvent.ClearSearch -> clearSearch()
+            is UiEvent.NavigateToDetail -> TODO()
+        }
+    }
+
 
     /**
      * This method is used to search gif based on the query
      * @param query String
      */
-    fun search(query: String) {
-
+    private fun search(query: String) {
         viewModelScope.launch {
             if (query.trim().isEmpty()) {
-                _dataState.value = SearchState.Empty
-            }
-            if (query.trim().length < 3) {
+                _uiEffect.emit(UiEffect.ShowSnackBar("Please enter a search query"))
                 return@launch
             }
-            giphyRepository.searchGif(query, SEARCH_LIMIT_SIZE).collect { result ->
-                when (result) {
-                    is Resource.Failure -> _dataState.value =
-                        SearchState.NetworkError(result.errorCode ?: ERROR_NETWORK)
-
-                    is Resource.Loading -> _dataState.value = SearchState.Loading
-                    is Resource.Success -> {
-                        if (result.data.isNullOrEmpty()) {
-                            _dataState.value = SearchState.NoSearchResults
-                        } else {
+            if (query.trim().length > 2) {
+                searchGifUseCase(query).onEach {
+                    when (it) {
+                        is Resource.Failure -> {
+                            _dataState.value = SearchState().copy(error = it.errorCode.toString())
+                            _uiEffect.emit(UiEffect.ShowSnackBar(it.errorCode.toString()))
                         }
-                        _dataState.value = SearchState.Success(result.data!!)
-                    }
 
-                }
+                        is Resource.Loading -> _dataState.value = SearchState().copy(loading = true)
+
+                        is Resource.Success -> _dataState.value =
+                            SearchState().copy(data = it.data!!)
+                    }
+                }.launchIn(this)
             }
         }
+
     }
 
     /**
      * This method shared SearchState.Empty and on SearchFragment it is used to clear the search results as per requirments.
      */
-    fun clearSearch() {
-        _dataState.value = SearchState.Empty
+    private fun clearSearch() {
+        _dataState.value = SearchState().copy(data = emptyList())
     }
 
 

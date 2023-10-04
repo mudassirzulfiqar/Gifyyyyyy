@@ -4,6 +4,8 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
@@ -16,9 +18,12 @@ import com.moodi.task.data.local.GiphyAppModel
 import com.moodi.task.screen.activity.ui.theme.TaskTheme
 import com.moodi.task.screen.compose.DetailScreen
 import com.moodi.task.screen.compose.HomeScreen
+import com.moodi.task.ui.sate.search.UiEffect
+import com.moodi.task.ui.sate.search.UiEvent
 import com.moodi.task.ui.viewmodel.RandomViewModel
 import com.moodi.task.ui.viewmodel.SearchViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 
 fun <A> String.fromJson(type: Class<A>): A {
     return Gson().fromJson(this, type)
@@ -64,13 +69,35 @@ private fun setupNavGraph(
         startDestination = Screen.Home.route
     ) {
         composable(Screen.Home.route) {
+
             val searchViewModel = hiltViewModel<SearchViewModel>()
             val randomSearchViewModel = hiltViewModel<RandomViewModel>()
+
+            val searchState = searchViewModel.dataState.collectAsState()
+            val randomSate = randomSearchViewModel.dataState.collectAsState()
+
+            LaunchedEffect(key1 = true) {
+                searchViewModel.uiEffectState.collectLatest {
+                    when (it) {
+                        is UiEffect.NavigateToDetail -> {
+                        }
+
+                        is UiEffect.ShowSnackBar -> {}
+                    }
+                }
+            }
+
             HomeScreen(
-                searchViewModel = searchViewModel,
-                randomViewModel = randomSearchViewModel,
+                searchState = searchState.value,
+                randomState = randomSate.value,
                 onPressedItem = {
                     navigationHostController.navigate(Screen.Detail.openDetail(it))
+                },
+                onQuerySearch = {
+                    searchViewModel.onEvent(UiEvent.Search(it))
+                },
+                onSearchClearPress = {
+                    searchViewModel.onEvent(UiEvent.ClearSearch)
                 }
             )
         }

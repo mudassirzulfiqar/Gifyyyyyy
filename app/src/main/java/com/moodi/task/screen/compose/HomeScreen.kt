@@ -31,7 +31,6 @@ import androidx.compose.material3.SearchBar
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -45,37 +44,30 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.moodi.task.data.local.GiphyAppModel
 import com.moodi.task.ui.sate.RandomState
-import com.moodi.task.ui.sate.SearchState
-import com.moodi.task.ui.viewmodel.RandomViewModel
-import com.moodi.task.ui.viewmodel.SearchViewModel
+import com.moodi.task.ui.sate.search.SearchState
 
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun HomeScreen(
-    searchViewModel: SearchViewModel,
-    randomViewModel: RandomViewModel,
-    onPressedItem: (GiphyAppModel) -> Unit
+    searchState: SearchState,
+    randomState: RandomState,
+    onPressedItem: (GiphyAppModel) -> Unit,
+    onSearchClearPress: () -> Unit,
+    onQuerySearch: (String) -> Unit
 ) {
 
     var searchTextQuery = rememberSaveable { mutableStateOf("") }
     var searchFocusActive = rememberSaveable { mutableStateOf(false) }
     var searchResultList = remember { mutableStateListOf<GiphyAppModel>() }
-    val searchViewModelResult = searchViewModel.dataState.collectAsState()
 
-    searchViewModelResult.value.let {
-        when (it) {
-            is SearchState.Success -> searchResultList.addAll(it.data)
-            is SearchState.Empty -> {
-                searchResultList.clear()
-            }
+    if (!searchState.data.isNullOrEmpty()) {
+        searchResultList.clear()
+        searchResultList.addAll(searchState.data)
+    } else if (searchState.loading) {
 
-            is SearchState.NoSearchResults -> {
-                searchResultList.clear()
-            }
-
-            else -> {}
-        }
+    } else if (!searchState.error.isNullOrEmpty()) {
+        searchResultList.clear()
     }
 
     Scaffold(
@@ -83,9 +75,12 @@ fun HomeScreen(
             Row {
                 SearchBar(
                     trailingIcon = {
-                        if (searchFocusActive.value && searchTextQuery.value.isNotEmpty()) {
+                        if (searchFocusActive.value &&
+                            searchTextQuery.value.isNotEmpty()
+                        ) {
                             Icon(
                                 modifier = Modifier.clickable {
+                                    onSearchClearPress.invoke()
                                     if (searchTextQuery.value.isNotEmpty()) {
                                         searchTextQuery.value = ""
                                         searchFocusActive.value = false
@@ -109,7 +104,7 @@ fun HomeScreen(
                     query = searchTextQuery.value,
                     onQueryChange = {
                         searchTextQuery.value = it
-                        searchViewModel.search(searchTextQuery.value)
+                        onQuerySearch.invoke(searchTextQuery.value)
                     }, onSearch = {
                         searchFocusActive.value = false
                     }, active = searchFocusActive.value,
@@ -132,25 +127,30 @@ fun HomeScreen(
             }
         },
         content = {
-            RandomGiphyView(randomViewModel)
+            RandomGiphyView(
+                randomState = randomState,
+            )
         })
 
 }
 
 @Composable
-fun RandomGiphyView(randomViewModel: RandomViewModel) {
+fun RandomGiphyView(
+    randomState: RandomState
+) {
 
-    val randomViewModelResult = randomViewModel.dataState.collectAsState()
-    when (randomViewModelResult.value) {
+    when (randomState) {
         is RandomState.Empty -> {}
         is RandomState.Loading -> {
             CircularLoader()
         }
 
-        is RandomState.NetworkError -> {}
+        is RandomState.NetworkError -> {
+        }
+
         is RandomState.Success -> {
             GiphySection(
-                giphyAppModel = (randomViewModelResult.value as RandomState.Success).data,
+                giphyAppModel = randomState.data,
                 title = "Random Gif"
             )
         }

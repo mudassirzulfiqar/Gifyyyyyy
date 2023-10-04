@@ -8,18 +8,14 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
-import com.moodi.task.R
 import com.moodi.task.adapter.SearchAdapter
 import com.moodi.task.databinding.FragmentSearchLayoutBinding
 import com.moodi.task.screen.activity.DetailActivity
-import com.moodi.task.ui.sate.SearchState
 import com.moodi.task.ui.viewmodel.SearchViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 /**
  * A search fragment to show search results. It uses [SearchViewModel] to get the data. and show in the UI.
@@ -79,34 +75,6 @@ class SearchFragment : Fragment() {
 
         lifecycleScope.launch {
 
-            viewModel.dataState.collect {
-                when (it) {
-                    SearchState.Empty -> {
-                        showLoader(false)
-                        adapter.clearData()
-                    }
-
-                    SearchState.Loading -> {
-                        showLoader(true)
-                    }
-
-                    is SearchState.NetworkError -> {
-                        showLoader(false)
-                        showMessage(getString(R.string.network_error))
-                    }
-
-                    SearchState.NoSearchResults -> {
-                        binding.progressBar.visibility = View.GONE
-                        showMessage(getString(R.string.no_results_found))
-                    }
-
-                    is SearchState.Success -> {
-                        showLoader(false)
-                        Timber.tag(TAG).d("search Results: ${it.data}")
-                        adapter.populateData(it.data)
-                    }
-                }
-            }
         }
         return binding.root
     }
