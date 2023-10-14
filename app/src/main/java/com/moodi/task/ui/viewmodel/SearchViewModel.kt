@@ -65,14 +65,17 @@ class SearchViewModel
                 searchGifUseCase(query).onEach {
                     when (it) {
                         is Resource.Failure -> {
-                            _dataState.value = SearchState().copy(error = it.errorCode.toString())
+                            _dataState.value.apply { copy(error = it.errorCode.toString()) }
                             _uiEffect.emit(UiEffect.ShowSnackBar(it.errorCode.toString()))
                         }
 
-                        is Resource.Loading -> _dataState.value = SearchState().copy(loading = true)
+                        is Resource.Loading -> _dataState.value.apply {
+                            copy(loading = true)
+                        }
 
-                        is Resource.Success -> _dataState.value =
-                            SearchState().copy(data = it.data!!)
+                        is Resource.Success -> _dataState.value.apply {
+                            copy(data = it.data!!)
+                        }
                     }
                 }.launchIn(this)
             }
@@ -84,7 +87,9 @@ class SearchViewModel
      * This method shared SearchState.Empty and on SearchFragment it is used to clear the search results as per requirments.
      */
     private fun clearSearch() {
-        _dataState.value = SearchState().copy(data = emptyList())
+        _dataState.value.apply {
+            copy(data = emptyList())
+        }
     }
 
 
