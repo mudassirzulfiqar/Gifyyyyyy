@@ -9,12 +9,12 @@ import com.android.tools.lint.detector.api.Scope
 import com.android.tools.lint.detector.api.Severity
 import com.moodi.lint.NonNullAssertionDetector
 
-val NON_NULL_ASSERTION_ISSUE = Issue.create(
-    "NonNullAssertion",
-    "Non-null assertion (!!) used",
-    "Don't use non-null assertions (!!). Design your code better to avoid needing it in the first place. As a last resort, replace it with checkNotNull() function.",
+val NOT_NULL_ASSERTION_ISSUE = Issue.create(
+    "NotNullAssertionIssue",
+    "Not-null assertion operator(!!) is used",
+    "Avoid employing not-null assertions (!!) ,use elvis operator (?:) instead.",
     Implementation(NonNullAssertionDetector::class.java, Scope.JAVA_FILE_SCOPE),
-    "https://android.jlelse.eu/how-to-remove-all-from-your-kotlin-code-87dc2c9767fb",
+    "https://kotlinlang.org/docs/null-safety.html#the-operator",
     Category.CORRECTNESS,
     5,
     Severity.ERROR
