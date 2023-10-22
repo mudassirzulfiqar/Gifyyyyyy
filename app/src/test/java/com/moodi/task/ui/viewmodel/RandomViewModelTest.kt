@@ -10,8 +10,9 @@ import com.moodi.task.mock.ErrorCode
 import com.moodi.task.mock.FakeRepository
 import com.moodi.task.mock.MockUtil
 import com.moodi.task.mock.fromJson
-import com.moodi.task.ui.dispatcher.PeriodicDispatcher
-import com.moodi.task.ui.sate.RandomState
+import com.moodi.task.dispatcher.PeriodicDispatcher
+import com.moodi.task.sate.random.RandomState
+import com.moodi.task.viewmodel.RandomViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.StandardTestDispatcher

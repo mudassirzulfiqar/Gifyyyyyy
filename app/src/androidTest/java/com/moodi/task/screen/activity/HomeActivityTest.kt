@@ -11,8 +11,6 @@ import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.moodi.task.R
-import com.moodi.task.screen.fragment.RandomFragment
-import com.moodi.task.screen.fragment.SearchFragment
 import com.moodi.task.util.EventAction.clearFocus
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest

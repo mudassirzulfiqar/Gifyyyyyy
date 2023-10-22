@@ -1,13 +1,14 @@
 package com.moodi.task.di
 
-import com.moodi.task.data.remote.api.WebApi
-import com.moodi.task.data.remote.config.WebClient
-import com.moodi.task.data.repository.GiphyRepository
-import com.moodi.task.data.repository.GiphyRepositoryImpl
-import com.moodi.task.data.source.RemoteDataSource
-import com.moodi.task.data.source.RemoteDataSourceImpl
-import com.moodi.task.ui.dispatcher.PeriodicDispatcher
-import com.moodi.task.usecase.SearchGifUseCase
+import com.moodi.data.remote.api.WebApi
+import com.moodi.data.remote.config.WebClient
+import com.moodi.data.repository.GiphyRepositoryImpl
+import com.moodi.data.source.RemoteDataSource
+import com.moodi.data.source.RemoteDataSourceImpl
+import com.moodi.domain.repository.GiphyRepository
+import com.moodi.domain.usecase.RandomGiphyUseCase
+import com.moodi.domain.usecase.SearchGiphyUseCase
+import com.moodi.task.dispatcher.PeriodicDispatcher
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -49,13 +50,19 @@ class AppModule {
     }
 
     @Provides
-    fun provideSearchGifUseCase(giphyRepository: GiphyRepository): SearchGifUseCase {
-        return SearchGifUseCase(giphyRepository)
+    fun provideSearchGifUseCase(giphyRepository: GiphyRepository): SearchGiphyUseCase {
+        return SearchGiphyUseCase(giphyRepository)
+    }
+
+    @Provides
+    fun provideRandomGifUseCase(giphyRepository: GiphyRepository): RandomGiphyUseCase {
+        return RandomGiphyUseCase(giphyRepository)
     }
 
     @Provides
     fun providePeriodicDispatcher(): PeriodicDispatcher {
         return PeriodicDispatcher(IO)
     }
+
 
 }

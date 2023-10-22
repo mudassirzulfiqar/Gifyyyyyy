@@ -15,3 +15,5 @@ dependencyResolutionManagement {
 rootProject.name = "Task"
 include ':app'
 include ':linter'
+include ':domain'
+include ':data'

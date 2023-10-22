@@ -42,9 +42,9 @@ import androidx.compose.ui.layout.layout
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.moodi.task.data.local.GiphyAppModel
-import com.moodi.task.ui.sate.RandomState
-import com.moodi.task.ui.sate.search.SearchState
+import com.moodi.domain.model.GiphyAppModel
+import com.moodi.task.sate.random.RandomState
+import com.moodi.task.sate.search.SearchState
 
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")

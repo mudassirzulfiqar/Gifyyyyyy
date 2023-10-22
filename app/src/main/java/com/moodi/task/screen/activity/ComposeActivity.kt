@@ -14,14 +14,14 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.google.gson.Gson
-import com.moodi.task.data.local.GiphyAppModel
+import com.moodi.domain.model.GiphyAppModel
+import com.moodi.task.sate.search.UiEffect
+import com.moodi.task.sate.search.UiEvent
 import com.moodi.task.screen.activity.ui.theme.TaskTheme
 import com.moodi.task.screen.compose.DetailScreen
 import com.moodi.task.screen.compose.HomeScreen
-import com.moodi.task.ui.sate.search.UiEffect
-import com.moodi.task.ui.sate.search.UiEvent
-import com.moodi.task.ui.viewmodel.RandomViewModel
-import com.moodi.task.ui.viewmodel.SearchViewModel
+import com.moodi.task.viewmodel.RandomViewModel
+import com.moodi.task.viewmodel.SearchViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 

@@ -5,7 +5,6 @@ import android.widget.EditText
 import androidx.test.espresso.UiController
 import androidx.test.espresso.ViewAction
 import androidx.test.espresso.matcher.ViewMatchers
-import com.moodi.task.widget.GiphyImageView
 import org.hamcrest.Matcher
 import org.hamcrest.core.AllOf
 
