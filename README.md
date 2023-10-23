@@ -1,7 +1,7 @@
 # Overview
 
 This README provides an overview of the architecture and components used in the Android project.
-<img height="320" src="arch.jpg" width="320"/>
+<img height="512" src="arch.jpg" width="1004"/>
 
 
 ### How to build the project?
