@@ -1,5 +1,15 @@
 # Overview
 
+### TODO
+- [ ] CI/CD
+- [ ] Testing Presentation Layer.
+- [ ] Lints.
+- [ ] Contribution readme.
+- [ ] Refactor State in viewmodels.
+- [ ] Implement MVI for compose and viewmodel commununcation.
+
+
+
 This README provides an overview of the architecture and components used in the Android project.
 <img height="512" src="arch.jpg" width="1004"/>
 
