@@ -1,9 +1,9 @@
-package com.moodi.task.data.repository
+package com.moodi.data.repository
 
 import app.cash.turbine.test
-import com.moodi.task.data.Resource
 import com.moodi.data.mock.ErrorCode
 import com.moodi.data.mock.FakeDataSource
+import com.moodi.domain.util.Resource
 import com.moodi.task.mock.MockUtil
 import com.moodi.task.mock.fromJson
 import kotlinx.coroutines.runBlocking

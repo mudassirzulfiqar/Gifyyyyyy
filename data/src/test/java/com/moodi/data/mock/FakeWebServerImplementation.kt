@@ -1,8 +1,8 @@
 @file:Suppress("SameParameterValue")
 
-package com.moodi.task.mock
+package com.moodi.data.mock
 
-import com.moodi.task.data.remote.api.WebApi
+import com.moodi.data.remote.api.WebApi
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import okhttp3.mockwebserver.MockResponse

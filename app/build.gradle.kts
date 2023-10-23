@@ -10,7 +10,7 @@ plugins {
 android {
 
 
-    lint{
+    lint {
         baseline = file("lint-baseline.xml")
     }
 
@@ -89,96 +89,79 @@ kapt {
 }
 dependencies {
 
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
-    implementation("androidx.activity:activity-compose:1.7.2")
-    implementation(platform("androidx.compose:compose-bom:2023.03.00"))
-    implementation("androidx.compose.ui:ui-graphics")
+    // Project Modules
     implementation(project(mapOf("path" to ":domain")))
     implementation(project(mapOf("path" to ":data")))
-    androidTestImplementation(platform("androidx.compose:compose-bom:2023.03.00"))
-    androidTestImplementation("androidx.compose.ui:ui-test-junit4")
-    debugImplementation("androidx.compose.ui:ui-test-manifest")
     lintChecks(project(":linter"))
 
-    // adding android components
+    // AndroidX Libraries
     implementation(Dependencies.core)
     implementation(Dependencies.appCompat)
-    implementation(Dependencies.material)
     implementation(Dependencies.constraint)
     implementation(Dependencies.lifeCycleExtension)
     implementation(Dependencies.lifeCycleViewModelKtx)
     implementation(Dependencies.fragmentKtx)
-    debugImplementation(Dependencies.Test.fragmentTesting)
+    implementation(Dependencies.material3)
+    implementation(Dependencies.foundation)
 
-    // adding network
+    // Jetpack Compose Dependencies
+    implementation(Dependencies.composeUI)
+    implementation(Dependencies.navigationCompose)
+    implementation(Dependencies.toolingPreview)
+    implementation(Dependencies.materialIcon)
+    implementation(Dependencies.materialIconExtended)
+    implementation(Dependencies.coil)
+    implementation(Dependencies.coilGif)
+    implementation(Dependencies.coilCompose)
+    implementation(Dependencies.navigationComposeFragment)
+    implementation(Dependencies.navigationFragmentKtx)
+    implementation(Dependencies.lifecycle)
+    implementation(Dependencies.compose)
+    implementation(Dependencies.composeBom)
+    implementation(Dependencies.composeUIGraphics)
+
+    // Network and Image Loading
     implementation(Dependencies.retrofit)
-    implementation(Dependencies.core)
     implementation(Dependencies.retrofitGson)
     implementation(Dependencies.retrofitlogging)
+    implementation(Dependencies.glide)
+    implementation(Dependencies.coil)
 
-    // adding logging
+    // Logging and Testing
     implementation(Dependencies.timber)
 
-    // adding di with tests
+    // Dependency Injection
     implementation(Dependencies.hilt)
-    testImplementation(Dependencies.Test.hiltTesting)
     kapt(Dependencies.hiltCompiler)
-    androidTestImplementation(Dependencies.Test.hiltTesting)
-    kaptTest(Dependencies.Test.hiltCompilerTesting)
-    testAnnotationProcessor(Dependencies.Test.hiltCompilerTesting)
-    kaptAndroidTest(Dependencies.Test.hiltCompilerTesting)
-    androidTestAnnotationProcessor(Dependencies.Test.hiltCompilerTesting)
 
+    // Debug Dependencies
+    debugImplementation(Dependencies.toolingPreview)
+    debugImplementation(Dependencies.Test.composeTestManifest)
+    debugImplementation(Dependencies.Test.fragmentTesting)
 
-    // adding glide
-    implementation(Dependencies.glide)
-
-    // adding unit tests
+    // Testing Dependencies
+    testImplementation(Dependencies.Test.hiltTesting)
     testImplementation(Dependencies.Test.junit)
     testImplementation(Dependencies.Test.coreKtx)
     testImplementation(Dependencies.Test.extJunit)
-
-    // adding coroutine tests
     testImplementation(Dependencies.Test.coroutineTest)
     testImplementation(Dependencies.Test.coreTest)
-
-    // adding mockito tests
     testImplementation(Dependencies.Test.kotlinMock)
     testImplementation(Dependencies.Test.mockk)
-
-    // adding turbine to test flows
     testImplementation(Dependencies.Test.turbine)
     testImplementation(Dependencies.Test.mockServer)
 
-    // adding android tests for UIs
+    // Android UI Testing Dependencies
     androidTestImplementation(Dependencies.Test.extJunit)
     androidTestImplementation(Dependencies.Test.espresso)
     androidTestImplementation(Dependencies.Test.coroutineTest)
     androidTestImplementation(Dependencies.Test.coreTest)
-    implementation(Dependencies.Test.espressoContrib)
+    androidTestImplementation(Dependencies.Test.composeUI)
+    androidTestImplementation(Dependencies.Test.hiltTesting)
+    androidTestAnnotationProcessor(Dependencies.Test.hiltCompilerTesting)
 
-    val composeVersion = "1.1.2"
-
-    // Material Design 3
-    implementation("androidx.compose.material3:material3:$composeVersion")
-    // or Material Design 2
-    implementation("androidx.compose.material:material:$composeVersion")
-    // or skip Material Design and build directly on top of foundational components
-    implementation("androidx.compose.foundation:foundation:$composeVersion")
-    // or only import the main APIs for the underlying toolkit systems,
-    // such as input and measurement/layout
-    implementation("androidx.compose.ui:ui:$composeVersion")
-    implementation ("androidx.navigation:navigation-compose:2.6.0")
-    // Android Studio Preview support
-    implementation("androidx.compose.ui:ui-tooling-preview:$composeVersion")
-    debugImplementation("androidx.compose.ui:ui-tooling:$composeVersion")
-    implementation("androidx.compose.material:material-icons-core:$composeVersion")
-    // Optional - Add full set of material icons
-    implementation("androidx.compose.material:material-icons-extended:$composeVersion")
-    implementation("io.coil-kt:coil:2.4.0")
-    implementation("io.coil-kt:coil-gif:2.4.0")
-    implementation("io.coil-kt:coil-compose:2.4.0")
-    implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
-    implementation("androidx.navigation:navigation-fragment-ktx:2.3.5")
-
+    testAnnotationProcessor(Dependencies.Test.hiltCompilerTesting)
+    kaptAndroidTest(Dependencies.Test.hiltCompilerTesting)
+    kaptTest(Dependencies.Test.hiltCompilerTesting)
+    
 }

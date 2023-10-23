@@ -3,7 +3,7 @@ package com.moodi.data.mapper
 import com.google.gson.Gson
 import com.moodi.data.MockUtil
 import com.moodi.data.remote.dto.RandomGiphyDTO
-import com.moodi.task.mock.API_DATA_RANDOM
+import com.moodi.data.mock.API_DATA_RANDOM
 import com.moodi.task.mock.fromJson
 import org.junit.Test
 

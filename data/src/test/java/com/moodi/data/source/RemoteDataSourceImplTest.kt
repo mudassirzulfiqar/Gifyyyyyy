@@ -5,7 +5,7 @@ import com.moodi.data.mock.ErrorCode.Companion.SERVER_ERROR
 import com.moodi.data.mock.ErrorCode.Companion.SUCCESS_CODE
 import com.moodi.domain.util.ERROR_NETWORK
 import com.moodi.domain.util.Resource
-import com.moodi.task.mock.FakeWebServerImplementation
+import com.moodi.data.mock.FakeWebServerImplementation
 import com.moodi.task.mock.MockUtil
 import kotlinx.coroutines.test.runTest
 import org.junit.After

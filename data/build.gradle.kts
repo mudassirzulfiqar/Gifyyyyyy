@@ -46,18 +46,17 @@ android {
 
 dependencies {
 
+    implementation(project(mapOf("path" to ":domain")))
     // adding network
     implementation(Dependencies.retrofit)
-    implementation(Dependencies.retrofitGson)
     implementation(Dependencies.retrofitlogging)
-    implementation(project(mapOf("path" to ":domain")))
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    implementation(Dependencies.retrofitGson)
     // adding unit tests
     testImplementation(Dependencies.Test.junit)
     testImplementation(Dependencies.Test.coreKtx)
     testImplementation(Dependencies.Test.extJunit)
+    testImplementation(Dependencies.Test.mockServer)
+    testImplementation(Dependencies.Test.turbine)
 
     // adding coroutine tests
     testImplementation(Dependencies.Test.coroutineTest)

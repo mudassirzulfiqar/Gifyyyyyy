@@ -3,8 +3,8 @@ package com.moodi.domain
 import com.moodi.domain.model.GiphyAppModel
 import com.moodi.domain.repository.GiphyRepository
 import com.moodi.domain.util.Resource
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import java.util.concurrent.Flow
 
 /**
  * This class is used to mock the repository for testing purpose.

@@ -1,6 +1,7 @@
-package com.moodi.task.mock
+package com.moodi.data.mock
 
-import com.moodi.task.data.local.GiphyAppModel
+import com.moodi.domain.model.GiphyAppModel
+
 
 /**
  * This file should always be aligned with the .json files under api-response folder.

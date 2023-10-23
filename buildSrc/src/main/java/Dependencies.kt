@@ -50,6 +50,15 @@ object Versions {
     const val fragmentTesting = "1.6.1"
     const val mockk = "1.13.7"
     const val hiltTesting = "2.44"
+    const val lifecycle = "2.6.2"
+    const val compose = "1.7.2"
+    const val composeBom = "2023.03.00"
+    const val composeVersion = "1.1.2"
+    const val navigationCompose = "2.6.0"
+    const val coil = "2.4.0"
+    const val navigationComposeFragment = "2.3.5"
+    const val navigationFragmentKtx = "1.0.0"
+
 
 }
 
@@ -71,6 +80,27 @@ object Dependencies {
         "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifeCycleViewModelKtx}"
     const val glide = "com.github.bumptech.glide:glide:${Versions.glide}"
     const val fragmentKtx = "androidx.fragment:fragment-ktx:${Versions.fragmentKtx}"
+    const val lifecycle = "androidx.lifecycle:lifecycle-runtime-ktx:${Versions.lifecycle}"
+    const val compose = "androidx.activity:activity-compose:${Versions.compose}"
+    const val composeBom = "androidx.compose:compose-bom:${Versions.composeBom}"
+    const val composeUIGraphics = "androidx.compose.ui:ui-graphics"
+    const val material3 = "androidx.compose.material3:material3:${Versions.composeVersion}"
+    const val foundation = "androidx.compose.foundation:foundation:${Versions.composeVersion}"
+    const val composeUI = "androidx.compose.ui:ui:${Versions.composeVersion}"
+    const val navigationCompose =
+        "androidx.navigation:navigation-compose:${Versions.navigationCompose}"
+    const val toolingPreview = "androidx.compose.ui:ui-tooling-preview:${Versions.composeVersion}"
+    const val materialIcon =
+        "androidx.compose.material:material-icons-core:${Versions.composeVersion}"
+    const val materialIconExtended =
+        "androidx.compose.material:material-icons-extended:${Versions.composeVersion}"
+    const val coil = "io.coil-kt:coil:${Versions.coil}"
+    const val coilGif = "io.coil-kt:coil-gif:${Versions.coil}"
+    const val coilCompose = "io.coil-kt:coil-compose:${Versions.coil}"
+    const val navigationComposeFragment =
+        "androidx.hilt:hilt-navigation-compose:${Versions.navigationFragmentKtx}"
+    const val navigationFragmentKtx =
+        "androidx.navigation:navigation-fragment-ktx:${Versions.navigationComposeFragment}"
 
 
     object Test {
@@ -93,12 +123,10 @@ object Dependencies {
         const val hiltTesting = "com.google.dagger:hilt-android-testing:${Versions.hiltTesting}"
         const val hiltCompilerTesting =
             "com.google.dagger:hilt-android-compiler:${Versions.hiltTesting}"
+        const val composeUI = "androidx.compose.ui:ui-test-junit4"
+        const val composeTestManifest = "androidx.compose.ui:ui-test-manifest"
 
 
     }
 
-    object Debug {
-        const val uiTooling = "androidx.compose.ui:ui-tooling"
-        const val uiTests = "androidx.compose.ui:ui-test-manifest"
-    }
 }
