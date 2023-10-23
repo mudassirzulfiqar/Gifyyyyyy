@@ -1,8 +1,8 @@
-# Project Explanation
-
-## Overview
+# Overview
 
 This README provides an overview of the architecture and components used in the Android project.
+<img height="512" src="arch.jpg" width="1004"/>
+
 
 ### How to build the project?
 
@@ -32,52 +32,18 @@ Please place the API key in the `local.properties` file as follows:
 - Repository: GiphyRepository
 - Model: GiphyAppModel
 
-### Presentation Layer
+### App Layer
 
 - ViewModels: RandomViewModel, SearchViewModel
 
 ### User Interface
 
-- Fragments: SearchFragment, RandomFragment
-- Activity: HomeActivity
-
-### Custom Widgets
-
-- GiphyImageView
-- SearchToolbarView
+- ComposeUI: DetailScreen, HomeScreen
+- Activity: ComposeActivity
 
 ## Explanation about Architecture
 
 MVVM + DataBinding + Hilt + Coroutines + Retrofit + Glide
-
-### Activities and Fragments
-
-Initially, the project was planned with two activities based on a task diagram. However, due to
-issues with non-aligned toolbars in activities, we opted for a simpler architecture.
-The `HomeActivity` now acts as a fragment container, hosting two fragments: `SearchFragment`
-and `RandomFragment`.
-
-### RandomFragment
-
-When the app is launched, it starts by displaying the `RandomFragment`, which features a randomized
-content with a refreshing mechanism. The refresh functionality is implemented using coroutines and
-automatically updates the content every 10 seconds.
-
-### SearchFragment
-
-When a user initiates a search for GIFs, the app adds the `SearchFragment` while preserving the
-state of the `RandomFragment`. A custom `Search View` has been created to ensure the correct
-behavior of the search functionality.
-
-### Custom Widgets
-
-Two custom widgets, `GiphyImageView` and `SearchToolbarView`, have been implemented to enhance the
-app's design and functionality. `GiphyImageView` is extended using the Glide library for future
-design flexibility .
-
-### Dependency Injection
-
-I used Hilt for dependency injection. And considering the nature of the task I decided to use single module for dependency injection.
 
 ### API Key Handling
 
