@@ -24,6 +24,9 @@ jobs:
           - name: Setup Gradle
             uses: gradle/gradle-build-action@v2
 
+          - name: Get local.properties from secret
+            run: echo "${{secret.PROPERTY }}" > $GITHUB_WORKSPACE/local.properties
+
           - name: Assemble app
             run: ./gradlew assemble
 
