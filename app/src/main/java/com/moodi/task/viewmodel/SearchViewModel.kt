@@ -2,6 +2,7 @@ package com.moodi.task.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.moodi.common.DispatcherProvider
 import com.moodi.domain.usecase.SearchGiphyUseCase
 import com.moodi.domain.util.Resource
 import com.moodi.task.sate.search.SearchState
@@ -13,8 +14,6 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 
 /**
@@ -30,7 +29,9 @@ import kotlinx.coroutines.launch
 @HiltViewModel
 class SearchViewModel
 @Inject constructor(
-    private val searchUseCase: SearchGiphyUseCase
+    private val searchUseCase: SearchGiphyUseCase,
+    private val defaultDispatcher: DispatcherProvider
+
 ) :
     ViewModel() {
 
@@ -53,16 +54,17 @@ class SearchViewModel
      * @param query String
      */
     private fun search(query: String) {
-        viewModelScope.launch {
+        viewModelScope.launch(defaultDispatcher.main) {
             if (query.trim().isEmpty()) {
                 _uiEffect.emit(UiEffect.ShowSnackBar("Please enter a search query"))
                 return@launch
             }
             if (query.trim().length > 2) {
-                searchUseCase(query, 20).onEach {
+                searchUseCase(query, 20).collect {
                     when (it) {
                         is Resource.Failure -> {
-                            _dataState.value.apply { copy(error = it.errorCode.toString()) }
+                            _dataState.value =
+                                _dataState.value.copy(error = it.errorCode.toString())
                             _uiEffect.emit(UiEffect.ShowSnackBar(it.errorCode.toString()))
                         }
 
@@ -74,7 +76,7 @@ class SearchViewModel
                             _dataState.value = _dataState.value.copy(data = it.data!!)
                         }
                     }
-                }.launchIn(this)
+                }
             }
         }
     }
@@ -83,8 +85,6 @@ class SearchViewModel
      * This method shared SearchState.Empty and on SearchFragment it is used to clear the search results as per requirments.
      */
     private fun clearSearch() {
-        _dataState.value.apply {
-            copy(data = emptyList())
-        }
+        _dataState.value = _dataState.value.copy(data = emptyList())
     }
 }

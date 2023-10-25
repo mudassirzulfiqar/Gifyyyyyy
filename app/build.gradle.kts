@@ -154,13 +154,14 @@ dependencies {
     testImplementation(Dependencies.Test.mockk)
     testImplementation(Dependencies.Test.turbine)
     testImplementation(Dependencies.Test.mockServer)
+    testImplementation(project(mapOf("path" to ":common")))
 
     // Android UI Testing Dependencies
     androidTestImplementation(Dependencies.Test.extJunit)
     androidTestImplementation(Dependencies.Test.espresso)
     androidTestImplementation(Dependencies.Test.coroutineTest)
     androidTestImplementation(Dependencies.Test.coreTest)
-    androidTestImplementation(Dependencies.Test.composeUI)
+//    androidTestImplementation(Dependencies.Test.composeUI)
     androidTestImplementation(Dependencies.Test.hiltTesting)
     androidTestAnnotationProcessor(Dependencies.Test.hiltCompilerTesting)
 

@@ -34,11 +34,9 @@ android {
 
 dependencies {
 
-    // adding network
-    implementation(Dependencies.retrofit)
-    implementation(Dependencies.retrofitlogging)
-    implementation(Dependencies.retrofitGson)
-    testImplementation(Dependencies.Test.mockServer)
+    // adding data
+    implementation(project(mapOf("path" to ":domain")))
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
 
 
 }

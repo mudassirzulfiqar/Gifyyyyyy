@@ -27,6 +27,4 @@ class FakeRepository(
             emit(testSearchGif!!)
         }
     }
-
-
 }

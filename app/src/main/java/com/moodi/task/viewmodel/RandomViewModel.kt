@@ -36,10 +36,6 @@ class RandomViewModel @Inject constructor(
     private val _dataState = MutableStateFlow<RandomState>(RandomState.Empty)
     val dataState = _dataState.asStateFlow()
 
-    init {
-        generateRandomGif()
-    }
-
     /**
      * This method is used to generate random gif periodically respect to the INTERVAL set in PeriodicDispatcher class
      */
