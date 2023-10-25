@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.moodi.domain"
+    namespace = "com.moodi.common"
     compileSdk = 33
 
     defaultConfig {
@@ -34,12 +34,11 @@ android {
 
 dependencies {
 
-    implementation(Dependencies.core)
-    implementation(Dependencies.appCompat)
+    // adding network
+    implementation(Dependencies.retrofit)
+    implementation(Dependencies.retrofitlogging)
+    implementation(Dependencies.retrofitGson)
+    testImplementation(Dependencies.Test.mockServer)
 
-    testImplementation(Dependencies.Test.extJunit)
-    testImplementation(Dependencies.Test.mockk)
-
-    androidTestImplementation(Dependencies.Test.espresso)
 
 }

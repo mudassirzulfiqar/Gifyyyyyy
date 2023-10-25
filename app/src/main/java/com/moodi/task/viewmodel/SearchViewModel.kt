@@ -8,6 +8,7 @@ import com.moodi.task.sate.search.SearchState
 import com.moodi.task.sate.search.UiEffect
 import com.moodi.task.sate.search.UiEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -15,7 +16,6 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 /**
  * This viewmodel is used to search gif based on the query
@@ -37,10 +37,8 @@ class SearchViewModel
     private val _dataState = MutableStateFlow(SearchState())
     val dataState = _dataState.asStateFlow()
 
-
     private val _uiEffect = MutableSharedFlow<UiEffect>()
     val uiEffectState = _uiEffect.asSharedFlow()
-
 
     fun onEvent(event: UiEvent) {
         when (event) {
@@ -49,7 +47,6 @@ class SearchViewModel
             is UiEvent.NavigateToDetail -> TODO()
         }
     }
-
 
     /**
      * This method is used to search gif based on the query
@@ -80,7 +77,6 @@ class SearchViewModel
                 }.launchIn(this)
             }
         }
-
     }
 
     /**
@@ -91,6 +87,4 @@ class SearchViewModel
             copy(data = emptyList())
         }
     }
-
-
 }

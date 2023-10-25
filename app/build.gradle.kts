@@ -4,11 +4,16 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("com.google.dagger.hilt.android")
+    id("org.jlleitschuh.gradle.ktlint") version "11.6.1"
     kotlin("kapt")
 }
 
 android {
 
+    ktlint {
+        android.set(true)
+        outputColorName.set("RED")
+    }
 
     lint {
         baseline = file("lint-baseline.xml")
@@ -24,7 +29,7 @@ android {
         versionCode = 1
         versionName = "0.1"
 
-        testInstrumentationRunner = "com.moodi.task.util.HiltTestRunner"
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary = true
         }
@@ -33,8 +38,6 @@ android {
             throw Exception("Please add api-key in local.properties file")
         }
         buildConfigField("String", "API_KEY", "\"$key\"")
-
-
     }
 
     buildTypes {
@@ -92,6 +95,7 @@ dependencies {
     // Project Modules
     implementation(project(mapOf("path" to ":domain")))
     implementation(project(mapOf("path" to ":data")))
+    implementation(project(mapOf("path" to ":common")))
     lintChecks(project(":linter"))
 
     // AndroidX Libraries
@@ -163,5 +167,4 @@ dependencies {
     testAnnotationProcessor(Dependencies.Test.hiltCompilerTesting)
     kaptAndroidTest(Dependencies.Test.hiltCompilerTesting)
     kaptTest(Dependencies.Test.hiltCompilerTesting)
-    
 }

@@ -63,6 +63,4 @@ class AppModule {
     fun providePeriodicDispatcher(): PeriodicDispatcher {
         return PeriodicDispatcher(IO)
     }
-
-
 }
