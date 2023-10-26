@@ -1,4 +1,5 @@
 import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+import org.jlleitschuh.gradle.ktlint.reporter.ReporterType
 
 plugins {
     id("com.android.application")
@@ -6,18 +7,29 @@ plugins {
     id("com.google.dagger.hilt.android")
     id("org.jlleitschuh.gradle.ktlint") version "11.6.1"
     kotlin("kapt")
+    id("jacoco")
+}
+
+
+jacoco {
+    toolVersion = "0.8.9"
+}
+ktlint {
+    android.set(true)
+    outputColorName.set("RED")
+    reporters {
+        reporter(ReporterType.HTML)
+    }
+    filter {
+        exclude("**/generated/**")
+        exclude("**/build/**")
+    }
 }
 
 android {
-
-    ktlint {
-        android.set(true)
-        outputColorName.set("RED")
-    }
-
-    lint {
-        baseline = file("lint-baseline.xml")
-    }
+    /*   lint {
+           baseline = file("lint-baseline.xml")
+       }*/
 
     namespace = App.namespace
     compileSdk = App.compileSdk
@@ -38,6 +50,7 @@ android {
             throw Exception("Please add api-key in local.properties file")
         }
         buildConfigField("String", "API_KEY", "\"$key\"")
+
     }
 
     buildTypes {
