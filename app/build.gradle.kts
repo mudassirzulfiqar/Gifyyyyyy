@@ -1,13 +1,35 @@
 import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+import org.jlleitschuh.gradle.ktlint.reporter.ReporterType
 
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("com.google.dagger.hilt.android")
+    id("org.jlleitschuh.gradle.ktlint") version "11.6.1"
     kotlin("kapt")
+    id("jacoco")
+}
+
+
+jacoco {
+    toolVersion = "0.8.9"
+}
+ktlint {
+    android.set(true)
+    outputColorName.set("RED")
+    reporters {
+        reporter(ReporterType.HTML)
+    }
+    filter {
+        exclude("**/generated/**")
+        exclude("**/build/**")
+    }
 }
 
 android {
+    /*   lint {
+           baseline = file("lint-baseline.xml")
+       }*/
 
     namespace = App.namespace
     compileSdk = App.compileSdk
@@ -19,7 +41,7 @@ android {
         versionCode = 1
         versionName = "0.1"
 
-        testInstrumentationRunner = "com.moodi.task.util.HiltTestRunner"
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary = true
         }
@@ -28,7 +50,6 @@ android {
             throw Exception("Please add api-key in local.properties file")
         }
         buildConfigField("String", "API_KEY", "\"$key\"")
-
 
     }
 
@@ -87,6 +108,7 @@ dependencies {
     // Project Modules
     implementation(project(mapOf("path" to ":domain")))
     implementation(project(mapOf("path" to ":data")))
+    implementation(project(mapOf("path" to ":common")))
     lintChecks(project(":linter"))
 
     // AndroidX Libraries
@@ -145,18 +167,18 @@ dependencies {
     testImplementation(Dependencies.Test.mockk)
     testImplementation(Dependencies.Test.turbine)
     testImplementation(Dependencies.Test.mockServer)
+    testImplementation(project(mapOf("path" to ":common")))
 
     // Android UI Testing Dependencies
     androidTestImplementation(Dependencies.Test.extJunit)
     androidTestImplementation(Dependencies.Test.espresso)
     androidTestImplementation(Dependencies.Test.coroutineTest)
     androidTestImplementation(Dependencies.Test.coreTest)
-    androidTestImplementation(Dependencies.Test.composeUI)
+//    androidTestImplementation(Dependencies.Test.composeUI)
     androidTestImplementation(Dependencies.Test.hiltTesting)
     androidTestAnnotationProcessor(Dependencies.Test.hiltCompilerTesting)
 
     testAnnotationProcessor(Dependencies.Test.hiltCompilerTesting)
     kaptAndroidTest(Dependencies.Test.hiltCompilerTesting)
     kaptTest(Dependencies.Test.hiltCompilerTesting)
-    
 }

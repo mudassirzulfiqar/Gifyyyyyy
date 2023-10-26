@@ -1,4 +1,4 @@
-package com.moodi.task.mock
+package com.moodi.data.mock
 
 import com.google.gson.Gson
 import okio.buffer

@@ -1,11 +1,11 @@
 package com.moodi.data.repository
 
 import app.cash.turbine.test
-import com.moodi.data.mock.ErrorCode
+import com.moodi.common.ErrorCode
 import com.moodi.data.mock.FakeDataSource
 import com.moodi.domain.util.Resource
-import com.moodi.task.mock.MockUtil
-import com.moodi.task.mock.fromJson
+import com.moodi.data.mock.MockUtil
+import com.moodi.data.mock.fromJson
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.TestCoroutineScheduler
 import org.junit.Before

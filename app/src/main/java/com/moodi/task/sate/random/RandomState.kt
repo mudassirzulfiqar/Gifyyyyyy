@@ -2,7 +2,6 @@ package com.moodi.task.sate.random
 
 import com.moodi.domain.model.GiphyAppModel
 
-
 /**
  * This class is used to define the state of the RandomFragment
  * The state is used to handle the UI changes based on the state

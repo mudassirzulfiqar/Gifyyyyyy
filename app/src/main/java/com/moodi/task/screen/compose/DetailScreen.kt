@@ -34,7 +34,8 @@ fun DetailScreen(
                 },
                 title = {
                     Text(model.title)
-                })
+                }
+            )
         },
         content = {
             GiphySection(

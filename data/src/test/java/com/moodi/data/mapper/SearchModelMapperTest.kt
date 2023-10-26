@@ -3,8 +3,8 @@ package com.moodi.data.mapper
 import com.moodi.data.remote.dto.SearchGiphyDTO
 import com.moodi.domain.model.GiphyAppModel
 import com.moodi.data.mock.API_DATA_SEARCH
-import com.moodi.task.mock.MockUtil
-import com.moodi.task.mock.fromJson
+import com.moodi.data.mock.MockUtil
+import com.moodi.data.mock.fromJson
 import org.junit.Test
 
 /**

@@ -40,7 +40,6 @@ sealed class Screen(val route: String) {
     }
 }
 
-
 @AndroidEntryPoint
 class ComposeActivity : ComponentActivity() {
 
@@ -57,7 +56,6 @@ class ComposeActivity : ComponentActivity() {
             }
         }
     }
-
 }
 
 @Composable
@@ -69,7 +67,6 @@ private fun setupNavGraph(
         startDestination = Screen.Home.route
     ) {
         composable(Screen.Home.route) {
-
             val searchViewModel = hiltViewModel<SearchViewModel>()
             val randomSearchViewModel = hiltViewModel<RandomViewModel>()
 
@@ -103,9 +100,11 @@ private fun setupNavGraph(
         }
         composable(
             "detail?model={model}",
-            arguments = listOf(navArgument("model") {
-                type = NavType.StringType
-            })
+            arguments = listOf(
+                navArgument("model") {
+                    type = NavType.StringType
+                }
+            )
         ) {
             it.arguments
                 ?.getString("model")
@@ -121,5 +120,3 @@ private fun setupNavGraph(
         }
     }
 }
-
-

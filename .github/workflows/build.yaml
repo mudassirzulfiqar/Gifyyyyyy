@@ -3,11 +3,44 @@ on:
   push:
     branches:
       - master
-    pull_request:
+  pull_request:
 
 jobs:
+    unit-tests:
+      run-on: ubuntu-latest
+      steps:
+        - name: Checkout
+          uses: actions/checkout@v4
+
+        - name: Validate Gradle Wrapper
+          uses: gradle/wrapper-validation-action@v1
+
+        - name: Setup JDK 11
+          uses: actions/setup-java@v3
+          with:
+                distribution: 'zulu'
+                java-version: 17
+
+        - name: Setup Gradle
+          uses: gradle/gradle-build-action@v2
+
+        - name: Get local.properties from secret
+          run: echo "${{secrets.PROPERTY }}" > $GITHUB_WORKSPACE/local.properties
+
+        - name: Run lint
+          run: ./gradlew ktlintCheck
+
+        - name: Run lint
+          run: ./gradlew lint
+
+        - name: Run unit tests
+          run: ./gradlew test
+
     build:
         runs-on: ubuntu-latest
+        needs:
+          - unit-tests
+
         steps:
           - name: Checkout
             uses: actions/checkout@v4

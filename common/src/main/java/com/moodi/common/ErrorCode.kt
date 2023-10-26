@@ -1,4 +1,4 @@
-package com.moodi.data.mock
+package com.moodi.common
 
 /**
  * Error codes used in the app

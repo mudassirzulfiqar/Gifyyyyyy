@@ -1,4 +1,4 @@
-package com.moodi.domain
+package com.moodi.task.ui.viewmodel
 
 import com.moodi.domain.model.GiphyAppModel
 import com.moodi.domain.repository.GiphyRepository
@@ -27,6 +27,4 @@ class FakeRepository(
             emit(testSearchGif!!)
         }
     }
-
-
 }

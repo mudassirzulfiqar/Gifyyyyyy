@@ -1,5 +1,7 @@
 package com.moodi.task.di
 
+import com.moodi.common.DefaultDispatcherProvider
+import com.moodi.common.DispatcherProvider
 import com.moodi.data.remote.api.WebApi
 import com.moodi.data.remote.config.WebClient
 import com.moodi.data.repository.GiphyRepositoryImpl
@@ -64,5 +66,8 @@ class AppModule {
         return PeriodicDispatcher(IO)
     }
 
-
+    @Provides
+    fun provideDispatcher(): DispatcherProvider {
+        return DefaultDispatcherProvider()
+    }
 }

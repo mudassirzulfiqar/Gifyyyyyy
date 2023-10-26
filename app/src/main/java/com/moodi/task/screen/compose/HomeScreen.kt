@@ -56,7 +56,6 @@ fun HomeScreen(
     onSearchClearPress: () -> Unit,
     onQuerySearch: (String) -> Unit
 ) {
-
     var searchTextQuery = rememberSaveable { mutableStateOf("") }
     var searchFocusActive = rememberSaveable { mutableStateOf(false) }
     var searchResultList = remember { mutableStateListOf<GiphyAppModel>() }
@@ -65,7 +64,6 @@ fun HomeScreen(
         searchResultList.clear()
         searchResultList.addAll(searchState.data)
     } else if (searchState.loading) {
-
     } else if (!searchState.error.isNullOrEmpty()) {
         searchResultList.clear()
     }
@@ -128,17 +126,16 @@ fun HomeScreen(
         },
         content = {
             RandomGiphyView(
-                randomState = randomState,
+                randomState = randomState
             )
-        })
-
+        }
+    )
 }
 
 @Composable
 fun RandomGiphyView(
     randomState: RandomState
 ) {
-
     when (randomState) {
         is RandomState.Empty -> {}
         is RandomState.Loading -> {
@@ -220,9 +217,8 @@ fun BottomGiphSection(randomGifState: GiphyAppModel?) {
                     text = randomGifState?.ageRate ?: "",
                     style = MaterialTheme.typography.labelSmall
                 )
-            },
+            }
         )
-
     }
 }
 
@@ -238,7 +234,7 @@ fun SearchResult(
         items(searchList) {
             Surface(
                 shape = RoundedCornerShape(4.dp),
-                modifier = Modifier.padding(4.dp),
+                modifier = Modifier.padding(4.dp)
             ) {
                 AsyncImage(
                     modifier = Modifier.clickable {
@@ -246,14 +242,11 @@ fun SearchResult(
                     },
                     contentScale = ContentScale.Crop,
                     model = it.stillUrl,
-                    contentDescription = null,
+                    contentDescription = null
                 )
             }
         }
-
     }
-
-
 }
 
 @Preview(showBackground = true, widthDp = 300)

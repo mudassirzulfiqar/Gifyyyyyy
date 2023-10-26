@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.moodi.domain"
+    namespace = "com.moodi.common"
     compileSdk = 33
 
     defaultConfig {
@@ -34,12 +34,9 @@ android {
 
 dependencies {
 
-    implementation(Dependencies.core)
-    implementation(Dependencies.appCompat)
+    // adding data
+    implementation(project(mapOf("path" to ":domain")))
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
 
-    testImplementation(Dependencies.Test.extJunit)
-    testImplementation(Dependencies.Test.mockk)
-
-    androidTestImplementation(Dependencies.Test.espresso)
 
 }

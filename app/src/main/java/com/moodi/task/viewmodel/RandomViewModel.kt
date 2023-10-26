@@ -8,10 +8,10 @@ import com.moodi.domain.util.Resource
 import com.moodi.task.dispatcher.PeriodicDispatcher
 import com.moodi.task.sate.random.RandomState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 /**
  * This viewmodel is used to generate random gif periodically
@@ -36,10 +36,6 @@ class RandomViewModel @Inject constructor(
     private val _dataState = MutableStateFlow<RandomState>(RandomState.Empty)
     val dataState = _dataState.asStateFlow()
 
-    init {
-        generateRandomGif()
-    }
-
     /**
      * This method is used to generate random gif periodically respect to the INTERVAL set in PeriodicDispatcher class
      */
@@ -56,8 +52,9 @@ class RandomViewModel @Inject constructor(
         viewModelScope.launch {
             useCase().collect { result ->
                 when (result) {
-                    is Resource.Failure -> _dataState.value =
-                        RandomState.NetworkError(result.errorCode ?: ERROR_NETWORK)
+                    is Resource.Failure ->
+                        _dataState.value =
+                            RandomState.NetworkError(result.errorCode ?: ERROR_NETWORK)
 
                     is Resource.Loading -> _dataState.value = RandomState.Loading
                     is Resource.Success -> {
