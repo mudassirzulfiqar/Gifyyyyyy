@@ -50,7 +50,7 @@ class ComposeActivity : ComponentActivity() {
         setContent {
             TaskTheme {
                 navigationHostController = rememberNavController()
-                setupNavGraph(
+                SetupNavGraph(
                     navigationHostController
                 )
             }
@@ -59,7 +59,7 @@ class ComposeActivity : ComponentActivity() {
 }
 
 @Composable
-private fun setupNavGraph(
+private fun SetupNavGraph(
     navigationHostController: NavHostController
 ) {
     NavHost(

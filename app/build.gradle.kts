@@ -139,7 +139,6 @@ dependencies {
     implementation(Dependencies.retrofit)
     implementation(Dependencies.retrofitGson)
     implementation(Dependencies.retrofitlogging)
-    implementation(Dependencies.glide)
     implementation(Dependencies.coil)
 
     // Logging and Testing

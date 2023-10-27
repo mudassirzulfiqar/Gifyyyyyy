@@ -23,7 +23,7 @@ sealed class RandomState {
      * It holds the GiphyAppModel
      * @param data GiphyAppModel
      */
-    data class Success(val data: GiphyAppModel) : RandomState()
+    data class Success(val data: GiphyAppModel?) : RandomState()
 
     /**
      * NetworkError data class holds the state of network error with parameter message as Int.
