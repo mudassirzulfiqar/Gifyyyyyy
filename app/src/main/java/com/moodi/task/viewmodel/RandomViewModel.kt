@@ -16,11 +16,11 @@ import kotlinx.coroutines.launch
 /**
  * This viewmodel is used to generate random gif periodically
  * It uses [PeriodicDispatcher] is responsible for generating random gif periodically
- * It uses [GiphyRepository] to get the random gif
+ * It uses [RandomGiphyUseCase] to get the random gif
  *
  *
- * @property giphyRepository
- * @property dispatcher
+ * @property useCase [RandomGiphyUseCase]
+ * @property dispatcher [PeriodicDispatcher]
  *
  * This view model holds stateful data and it is used to handle the UI changes based on the state
  * It transform the data from the repository to [RandomState]
@@ -58,7 +58,7 @@ class RandomViewModel @Inject constructor(
 
                     is Resource.Loading -> _dataState.value = RandomState.Loading
                     is Resource.Success -> {
-                        _dataState.value = RandomState.Success(result.data!!)
+                        _dataState.value = RandomState.Success(result.data)
                     }
                 }
             }

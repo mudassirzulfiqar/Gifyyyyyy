@@ -10,7 +10,6 @@ plugins {
     id("jacoco")
 }
 
-
 jacoco {
     toolVersion = "0.8.9"
 }
@@ -50,7 +49,6 @@ android {
             throw Exception("Please add api-key in local.properties file")
         }
         buildConfigField("String", "API_KEY", "\"$key\"")
-
     }
 
     buildTypes {
@@ -141,7 +139,6 @@ dependencies {
     implementation(Dependencies.retrofit)
     implementation(Dependencies.retrofitGson)
     implementation(Dependencies.retrofitlogging)
-    implementation(Dependencies.glide)
     implementation(Dependencies.coil)
 
     // Logging and Testing

@@ -6,7 +6,9 @@ const val ERROR_NETWORK = -1
  * A generic wrapper class around data request to handle success, failure and loading.
  */
 sealed class Resource<T>(
-    val data: T? = null, val errorCode: Int? = null, val errorMessage: String? = null
+    val data: T? = null,
+    val errorCode: Int? = null,
+    val errorMessage: String? = null
 ) {
     class Success<T>(data: T) : Resource<T>(data)
     class Loading<T> : Resource<T>(null)

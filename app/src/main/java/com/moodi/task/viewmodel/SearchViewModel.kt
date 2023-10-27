@@ -21,9 +21,8 @@ import kotlinx.coroutines.launch
  * It uses GiphyRepository to get the search results
  * It holds stateful data and it is used to handle the UI changes based on the state
  *
- * Used in [SearchFragment] and in [HomeActivity]
- *
- * @property giphyRepository
+ * @property searchUseCase [SearchGiphyUseCase]
+ * @property defaultDispatcher [DispatcherProvider]
  *
  */
 @HiltViewModel
@@ -73,7 +72,9 @@ class SearchViewModel
                         }
 
                         is Resource.Success -> {
-                            _dataState.value = _dataState.value.copy(data = it.data!!)
+                            it.data?.let { data ->
+                                _dataState.value = _dataState.value.copy(data = data)
+                            }
                         }
                     }
                 }
@@ -82,7 +83,7 @@ class SearchViewModel
     }
 
     /**
-     * This method shared SearchState.Empty and on SearchFragment it is used to clear the search results as per requirments.
+     * This method shared SearchState.Empty and on SearchFragment it is used to clear the search results as per requirements.
      */
     private fun clearSearch() {
         _dataState.value = _dataState.value.copy(data = emptyList())
