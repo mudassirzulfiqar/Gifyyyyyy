@@ -1,4 +1,4 @@
-package com.moodi.task.sate.random
+package com.moodi.task.state.random
 
 import com.moodi.domain.model.GiphyAppModel
 

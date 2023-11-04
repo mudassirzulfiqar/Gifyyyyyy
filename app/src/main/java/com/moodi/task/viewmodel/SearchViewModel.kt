@@ -5,9 +5,9 @@ import androidx.lifecycle.viewModelScope
 import com.moodi.common.DispatcherProvider
 import com.moodi.domain.usecase.SearchGiphyUseCase
 import com.moodi.domain.util.Resource
-import com.moodi.task.sate.search.SearchState
-import com.moodi.task.sate.search.UiEffect
-import com.moodi.task.sate.search.UiEvent
+import com.moodi.task.state.search.SearchState
+import com.moodi.task.state.search.UiEffect
+import com.moodi.task.state.search.UiEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableSharedFlow

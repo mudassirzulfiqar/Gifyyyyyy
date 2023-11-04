@@ -2,6 +2,7 @@ plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
 }
+apply(from = "$rootDir/jacoco.gradle")
 
 android {
     namespace = "com.moodi.common"
@@ -37,6 +38,4 @@ dependencies {
     // adding data
     implementation(project(mapOf("path" to ":domain")))
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
-
-
 }

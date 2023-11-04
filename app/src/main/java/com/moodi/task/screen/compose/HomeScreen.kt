@@ -43,8 +43,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.moodi.domain.model.GiphyAppModel
-import com.moodi.task.sate.random.RandomState
-import com.moodi.task.sate.search.SearchState
+import com.moodi.task.state.random.RandomState
+import com.moodi.task.state.search.SearchState
 
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -56,9 +56,9 @@ fun HomeScreen(
     onSearchClearPress: () -> Unit,
     onQuerySearch: (String) -> Unit
 ) {
-    var searchTextQuery = rememberSaveable { mutableStateOf("") }
-    var searchFocusActive = rememberSaveable { mutableStateOf(false) }
-    var searchResultList = remember { mutableStateListOf<GiphyAppModel>() }
+    val searchTextQuery = rememberSaveable { mutableStateOf("") }
+    val searchFocusActive = rememberSaveable { mutableStateOf(false) }
+    val searchResultList = remember { mutableStateListOf<GiphyAppModel>() }
 
     if (!searchState.data.isNullOrEmpty()) {
         searchResultList.clear()

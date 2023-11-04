@@ -6,7 +6,7 @@ import com.moodi.domain.usecase.RandomGiphyUseCase
 import com.moodi.domain.util.ERROR_NETWORK
 import com.moodi.domain.util.Resource
 import com.moodi.task.dispatcher.PeriodicDispatcher
-import com.moodi.task.sate.random.RandomState
+import com.moodi.task.state.random.RandomState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow

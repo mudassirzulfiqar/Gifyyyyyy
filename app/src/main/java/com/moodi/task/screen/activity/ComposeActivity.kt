@@ -15,11 +15,11 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.google.gson.Gson
 import com.moodi.domain.model.GiphyAppModel
-import com.moodi.task.sate.search.UiEffect
-import com.moodi.task.sate.search.UiEvent
 import com.moodi.task.screen.activity.ui.theme.TaskTheme
 import com.moodi.task.screen.compose.DetailScreen
 import com.moodi.task.screen.compose.HomeScreen
+import com.moodi.task.state.search.UiEffect
+import com.moodi.task.state.search.UiEvent
 import com.moodi.task.viewmodel.RandomViewModel
 import com.moodi.task.viewmodel.SearchViewModel
 import dagger.hilt.android.AndroidEntryPoint

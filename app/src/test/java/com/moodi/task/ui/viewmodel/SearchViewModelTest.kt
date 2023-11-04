@@ -6,7 +6,7 @@ import com.moodi.common.DispatcherProvider
 import com.moodi.common.ErrorCode
 import com.moodi.domain.usecase.SearchGiphyUseCase
 import com.moodi.domain.util.Resource
-import com.moodi.task.sate.search.UiEvent
+import com.moodi.task.state.search.UiEvent
 import com.moodi.task.ui.TestDispatcherProvider
 import com.moodi.task.viewmodel.SearchViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
