@@ -6,7 +6,7 @@ import com.moodi.common.ErrorCode
 import com.moodi.domain.usecase.RandomGiphyUseCase
 import com.moodi.domain.util.Resource
 import com.moodi.task.dispatcher.PeriodicDispatcher
-import com.moodi.task.sate.random.RandomState
+import com.moodi.task.state.random.RandomState
 import com.moodi.task.viewmodel.RandomViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi

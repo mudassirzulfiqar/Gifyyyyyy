@@ -2,6 +2,7 @@ plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
 }
+apply(from = "$rootDir/jacoco.gradle")
 
 android {
     namespace = "com.moodi.domain"
@@ -41,5 +42,4 @@ dependencies {
     testImplementation(Dependencies.Test.mockk)
 
     androidTestImplementation(Dependencies.Test.espresso)
-
 }

@@ -4,6 +4,7 @@ plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
 }
+apply(from = "$rootDir/jacoco.gradle")
 
 android {
     namespace = "com.moodi.data"
@@ -20,7 +21,6 @@ android {
             throw Exception("Please add api-key in local.properties file")
         }
         buildConfigField("String", "API_KEY", "\"$key\"")
-
     }
 
     buildTypes {
@@ -66,5 +66,4 @@ dependencies {
     // adding android components
     implementation(Dependencies.core)
     implementation(Dependencies.lifeCycleExtension)
-
 }

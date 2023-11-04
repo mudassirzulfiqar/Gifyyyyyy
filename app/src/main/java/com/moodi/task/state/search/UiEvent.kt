@@ -1,4 +1,4 @@
-package com.moodi.task.sate.search
+package com.moodi.task.state.search
 
 sealed class UiEvent {
     object NavigateToDetail : UiEvent()
