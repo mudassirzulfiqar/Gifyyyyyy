@@ -35,8 +35,14 @@ fun <A> A.toJson(): String? {
 
 sealed class Screen(val route: String) {
     object Home : Screen("home")
-    object Detail : Screen("detail") {
-        fun openDetail(appModel: GiphyAppModel) = "detail?model=${appModel.toJson()}"
+    sealed class Detail(route: String) : Screen(route) {
+        object DetailScreen : Detail("detail")
+        companion object {
+            private const val ARG_MODEL = "model"
+            fun createRoute(appModel: GiphyAppModel): String {
+                return "${DetailScreen.route}?$ARG_MODEL=${appModel.toJson()}"
+            }
+        }
     }
 }
 
@@ -69,6 +75,7 @@ private fun SetupNavGraph(
         composable(Screen.Home.route) {
             val searchViewModel = hiltViewModel<SearchViewModel>()
             val randomSearchViewModel = hiltViewModel<RandomViewModel>()
+            randomSearchViewModel.generateRandomGif()
 
             val searchState = searchViewModel.dataState.collectAsState()
             val randomSate = randomSearchViewModel.dataState.collectAsState()
@@ -77,9 +84,14 @@ private fun SetupNavGraph(
                 searchViewModel.uiEffectState.collectLatest {
                     when (it) {
                         is UiEffect.NavigateToDetail -> {
+                            navigationHostController.navigate(
+                                Screen.Detail.createRoute(it.giphyAppModel)
+                            )
                         }
 
-                        is UiEffect.ShowSnackBar -> {}
+                        is UiEffect.ShowSnackBar -> {
+                            // TODO: add snackbar message
+                        }
                     }
                 }
             }
@@ -88,7 +100,7 @@ private fun SetupNavGraph(
                 searchState = searchState.value,
                 randomState = randomSate.value,
                 onPressedItem = {
-                    navigationHostController.navigate(Screen.Detail.openDetail(it))
+                    searchViewModel.onEvent(UiEvent.ItemClicked(it))
                 },
                 onQuerySearch = {
                     searchViewModel.onEvent(UiEvent.Search(it))

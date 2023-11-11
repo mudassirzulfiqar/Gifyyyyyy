@@ -17,7 +17,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 /**
- * This viewmodel is used to search gif based on the query
+ * This [SearchViewModel] is used to search gif based on the query
  * It uses GiphyRepository to get the search results
  * It holds stateful data and it is used to handle the UI changes based on the state
  *
@@ -30,9 +30,7 @@ class SearchViewModel
 @Inject constructor(
     private val searchUseCase: SearchGiphyUseCase,
     private val defaultDispatcher: DispatcherProvider
-
-) :
-    ViewModel() {
+) : ViewModel() {
 
     private val _dataState = MutableStateFlow(SearchState())
     val dataState = _dataState.asStateFlow()
@@ -44,7 +42,13 @@ class SearchViewModel
         when (event) {
             is UiEvent.Search -> search(event.searchQuery)
             is UiEvent.ClearSearch -> clearSearch()
-            is UiEvent.NavigateToDetail -> TODO()
+            is UiEvent.ItemClicked -> performEffect(UiEffect.NavigateToDetail(event.appModel))
+        }
+    }
+
+    private fun performEffect(event: UiEffect) {
+        viewModelScope.launch {
+            _uiEffect.emit(event)
         }
     }
 
@@ -55,7 +59,7 @@ class SearchViewModel
     private fun search(query: String) {
         viewModelScope.launch(defaultDispatcher.main) {
             if (query.trim().isEmpty()) {
-                _uiEffect.emit(UiEffect.ShowSnackBar("Please enter a search query"))
+                performEffect(UiEffect.ShowSnackBar("Please enter a search query"))
                 return@launch
             }
             if (query.trim().length > 2) {

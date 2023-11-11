@@ -48,7 +48,7 @@ class RandomViewModel @Inject constructor(
     /**
      * This method is used to get the random gif from the repository.
      */
-    fun randomGif() {
+    private fun randomGif() {
         viewModelScope.launch {
             useCase().collect { result ->
                 when (result) {
