@@ -5,6 +5,7 @@ import com.moodi.domain.util.ERROR_NETWORK
 import com.moodi.domain.util.Resource
 import com.moodi.data.remote.dto.RandomGiphyDTO
 import com.moodi.data.remote.dto.SearchGiphyDTO
+import retrofit2.Response
 
 /**
  * This class is used to fetch data from the server by injecting the webApi from injection.
@@ -16,39 +17,34 @@ import com.moodi.data.remote.dto.SearchGiphyDTO
  * Considering time constraints Im catching all network exceptions with [ERROR_NETWORK] code.
  */
 class RemoteDataSourceImpl(private val webApi: WebApi) : RemoteDataSource {
+
     override suspend fun getRandomGif(): Resource<RandomGiphyDTO> {
-        return try {
-            // setting time before Sending to the server
-            val result = webApi.getRandomGif()
-            if (result.isSuccessful) {
-                Resource.Success(result.body()!!)
-            } else {
-                Resource.Failure(result.code(), result.message())
-            }
-
-        } catch (e: Exception) {
-            Resource.Failure(ERROR_NETWORK, e.message.toString())
-        }
-
+        return executeApiCall { webApi.getRandomGif() }
     }
 
+    override suspend fun searchGif(query: String, limit: Int): Resource<SearchGiphyDTO> {
+        return executeApiCall { webApi.searchGif(limit, query) }
+    }
 
-    override suspend fun searchGif(
-        query: String,
-        limit: Int
-    ): Resource<SearchGiphyDTO> {
+    /**
+     * Generic helper function to handle API calls and responses.
+     * Removes duplicate code and standardizes error handling.
+     */
+    private suspend fun <T> executeApiCall(apiCall: suspend () -> Response<T>): Resource<T> {
         return try {
-            // setting time before Sending to the server
-            val result = webApi.searchGif(limit, query)
-            if (result.isSuccessful) {
-                Resource.Success(result.body()!!)
+            val response = apiCall()
+            if (response.isSuccessful) {
+                val body = response.body()
+                if (body != null) {
+                    Resource.Success(body)
+                } else {
+                    Resource.Failure(response.code(), "Response body is null")
+                }
             } else {
-                Resource.Failure(result.code(), result.message())
+                Resource.Failure(response.code(), response.message())
             }
-
         } catch (e: Exception) {
-            Resource.Failure(ERROR_NETWORK, e.message.toString())
+            Resource.Failure(ERROR_NETWORK, e.message ?: "Unknown network error")
         }
-
     }
 }

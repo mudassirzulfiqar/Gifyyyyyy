@@ -29,7 +29,7 @@ class GiphyRepositoryImpl(
         emit(Resource.Loading())
         val result = source.getRandomGif()
         if (result is Resource.Success) {
-            val data = result.data!!.asAppModel()
+            val data = result.data?.asAppModel() ?: throw IllegalStateException("Data is null")
             emit(Resource.Success(data))
         } else {
             emit(Resource.Failure(result.errorCode!!, result.errorMessage!!))
