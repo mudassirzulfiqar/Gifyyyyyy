@@ -93,6 +93,40 @@ android {
     buildFeatures {
         compose = true
     }
+
+    flavorDimensions += listOf("app", "env")
+
+    productFlavors {
+
+        create("standard") {
+            dimension = "app"
+            versionNameSuffix = ""
+            manifestPlaceholders["appLabel"] = "Medium"
+        }
+
+        create("pro") {
+            dimension = "app"
+            versionNameSuffix = "-pro"
+            applicationIdSuffix = ".pro"
+            manifestPlaceholders["appLabel"] = "Medium Pro"
+            // add build config fields
+        }
+
+        create("staging") {
+            dimension = "env"
+            buildConfigField("String", "BASE_URL", "\"url-here\"")
+        }
+
+        create("production") {
+            dimension = "env"
+            buildConfigField("String", "BASE_URL", "\"url-here\"")
+        }
+
+        create("proxy") {
+            dimension = "env"
+            buildConfigField("String", "BASE_URL", "\"url-here\"")
+        }
+    }
 }
 // Allow references to generated code
 kapt {
@@ -168,7 +202,7 @@ dependencies {
     androidTestImplementation(Dependencies.Test.espresso)
     androidTestImplementation(Dependencies.Test.coroutineTest)
     androidTestImplementation(Dependencies.Test.coreTest)
-//    androidTestImplementation(Dependencies.Test.composeUI)
+    androidTestImplementation(Dependencies.Test.composeUI)
     androidTestImplementation(Dependencies.Test.hiltTesting)
     androidTestAnnotationProcessor(Dependencies.Test.hiltCompilerTesting)
 

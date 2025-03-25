@@ -11,7 +11,6 @@ object App {
     const val kotlinStdLib = "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
     const val kotlinGradlePlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
     const val kotlinSerialization = "org.jetbrains.kotlin:kotlin-serialization:$kotlinVersion"
-
 }
 
 object AppVersion {
@@ -20,7 +19,6 @@ object AppVersion {
     const val minor = 0
     const val patch = 1
 }
-
 
 object Versions {
     const val core = "1.8.0"
@@ -58,8 +56,7 @@ object Versions {
     const val coil = "2.4.0"
     const val navigationComposeFragment = "2.3.5"
     const val navigationFragmentKtx = "1.0.0"
-
-
+    const val composeUI = "1.5.4"
 }
 
 object Dependencies {
@@ -102,7 +99,6 @@ object Dependencies {
     const val navigationFragmentKtx =
         "androidx.navigation:navigation-fragment-ktx:${Versions.navigationComposeFragment}"
 
-
     object Test {
         const val junit = "junit:junit:${Versions.junit}"
         const val extJunit = "androidx.test.ext:junit:${Versions.testJUnit}"
@@ -123,10 +119,7 @@ object Dependencies {
         const val hiltTesting = "com.google.dagger:hilt-android-testing:${Versions.hiltTesting}"
         const val hiltCompilerTesting =
             "com.google.dagger:hilt-android-compiler:${Versions.hiltTesting}"
-        const val composeUI = "androidx.compose.ui:ui-test-junit4"
+        const val composeUI = "androidx.compose.ui:ui-test-junit4:${Versions.composeUI}"
         const val composeTestManifest = "androidx.compose.ui:ui-test-manifest"
-
-
     }
-
 }

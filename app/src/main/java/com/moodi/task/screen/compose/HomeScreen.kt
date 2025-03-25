@@ -39,6 +39,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.layout
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
@@ -91,6 +92,7 @@ fun HomeScreen(
                     },
                     leadingIcon = {
                         Icon(
+                            modifier = Modifier.testTag("search-icon"),
                             imageVector = Icons.Outlined.Search,
                             contentDescription = null
                         )
